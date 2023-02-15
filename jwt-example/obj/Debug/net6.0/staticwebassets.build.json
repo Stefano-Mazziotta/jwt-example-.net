@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "4rvLNehkTUU6PRIUx+H4J0h4UVrxchpcM78wJxi219Q=",
+  "Source": "jwt-example",
+  "BasePath": "_content/jwt-example",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
