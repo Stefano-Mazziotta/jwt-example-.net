@@ -1,6 +1,7 @@
 ﻿using jwt_example.Interfaces;
 using jwt_example.Models;
 using jwt_example.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -21,6 +22,7 @@ namespace jwt_example.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
