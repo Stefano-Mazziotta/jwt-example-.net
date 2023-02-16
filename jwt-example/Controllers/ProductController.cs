@@ -11,7 +11,7 @@ namespace jwt_example.Controllers
     {
         [HttpGet]
         [Authorize]
-        public IActionResult getAll()
+        public IActionResult GetAll()
         {
             var listProduct = ProductConstants.Products;
             return Ok(listProduct);

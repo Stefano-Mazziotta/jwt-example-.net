@@ -11,7 +11,7 @@ namespace jwt_example.Controllers
     {
         [HttpGet]
         [Authorize(Roles = ("admin"))]
-        public IActionResult getAll() 
+        public IActionResult GetAll() 
         {
             var listEmployee = EmployeeConstants.Employees;
             return Ok(listEmployee);

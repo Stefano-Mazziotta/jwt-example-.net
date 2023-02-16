@@ -9,7 +9,7 @@ namespace jwt_example.Controllers
     public class CountryController : ControllerBase
     {
         [HttpGet]
-        public IActionResult getAll()
+        public IActionResult GetAll()
         {
             var listCountry = CountryConstants.Countries;
             return Ok(listCountry);
