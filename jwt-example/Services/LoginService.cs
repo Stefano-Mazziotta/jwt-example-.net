@@ -1,4 +1,5 @@
 ﻿using jwt_example.Constants;
+using jwt_example.Interfaces;
 using jwt_example.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace jwt_example.Services
 {
-    public class LoginService
+    public class LoginService : ILoginService
     {
         private readonly IConfiguration _configuration;
 
@@ -16,7 +17,7 @@ namespace jwt_example.Services
             _configuration = config;
         }
 
-        public UserModel? authenticate(LoginUserModel loginUser)
+        public UserModel? Authenticate(LoginUserModel loginUser)
         {
             var currentUser = UserConstants.Users.FirstOrDefault(user => user.username.ToLower() == loginUser.username.ToLower()
                 && user.password == loginUser.password);
@@ -29,7 +30,7 @@ namespace jwt_example.Services
             return currentUser;
         }
 
-        public string generateToken(UserModel user)
+        public string GenerateToken(UserModel user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -56,7 +57,7 @@ namespace jwt_example.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public UserModel? getCurrentUser(ClaimsIdentity? identity) 
+        public UserModel? GetCurrentUser(ClaimsIdentity? identity) 
         { 
         
             if (identity == null)
@@ -75,7 +76,5 @@ namespace jwt_example.Services
                 role = userClaims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role)?.Value
             };
         }
-
-
     }
 }

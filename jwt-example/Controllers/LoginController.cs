@@ -1,4 +1,5 @@
-﻿using jwt_example.Models;
+﻿using jwt_example.Interfaces;
+using jwt_example.Models;
 using jwt_example.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,19 +12,19 @@ namespace jwt_example.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private LoginService _loginService;
+        private readonly ILoginService _loginService;
 
-        public LoginController(IConfiguration config, LoginService loginService)
+        public LoginController(IConfiguration config, ILoginService loginService)
         {
             _configuration = config;
             _loginService = loginService;
         }
 
         [HttpGet]
-        public IActionResult get()
+        public IActionResult Get()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var currentUser = _loginService.getCurrentUser(identity);
+            var currentUser = _loginService.GetCurrentUser(identity);
             if (currentUser == null)
             {
                 return NotFound("Current user not found");
@@ -32,16 +33,16 @@ namespace jwt_example.Controllers
         }
 
         [HttpPost]
-        public IActionResult login(LoginUserModel loginUser)
+        public IActionResult Login(LoginUserModel loginUser)
         {
-            var user = _loginService.authenticate(loginUser);
+            var user = _loginService.Authenticate(loginUser);
 
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var token = _loginService.generateToken(user);
+            var token = _loginService.GenerateToken(user);
             return Ok(token);
         }
     }
