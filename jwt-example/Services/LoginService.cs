@@ -47,8 +47,8 @@ namespace jwt_example.Services
 
             // create token
             var token = new JwtSecurityToken(
-                        _configuration["jwt"],
-                        _configuration["jwt:audience"],
+                        null,
+                        null,
                         claims,
                         expires: DateTime.Now.AddMinutes(15),
                         signingCredentials: credentials
